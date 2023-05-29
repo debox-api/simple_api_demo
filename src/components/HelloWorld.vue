@@ -1,7 +1,17 @@
 <template>
   <div class="hello"> 
-    <input v-model="input" placeholder="input group share url" />
-    <button @click="btnclick">get group info</button>
+    <div >
+      <input id="sty" v-model="input" placeholder="Input group share url" />
+    </div>
+   
+    <div>
+      <button id="sty" @click="btnclick">Get group info</button>
+    </div>
+    
+    <div>
+      <span id="sty" >{{ result }}</span>
+    </div>
+    
   </div>
 </template>
 
@@ -16,14 +26,19 @@ export default {
   data() {
     return {
       input: "",
+      result:''
     };
   },
   methods: { 
     async btnclick() {
       // DeBox开发者社区:  https://debox.space/dao/wC6DlLGJ
-      const data = await getGroupInfo(this.input);
+      const res = await getGroupInfo(this.input);
       // 正常返回数据
-      if(data.code === 200) alert(JSON.stringify(data) );
+      if(res.code === 200) { 
+        // group_name
+        // group_number
+        this.result= ` ${res.data.group_name} : ${res.data.group_number} members`
+      }
     },
   },
 };
@@ -44,5 +59,10 @@ li {
 }
 a {
   color: #42b983;
+}
+
+#sty {
+  width: 200px; height: 30px;
+  text-align: center;
 }
 </style>
